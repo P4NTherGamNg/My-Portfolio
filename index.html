@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dumindu Dulanjana · ICT Portfolio</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- external CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- navigation with theme toggle -->
+    <nav class="navbar">
+      <div class="logo">Dumindu D.</div>
+      <div class="nav-links">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#qualifications">Qualifications</a>
+  <a href="#contact">Contact</a>
+  <span id="auth-link"></span>  <!-- Login/Dashboard will appear here -->
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+  </button>
+</div>
+    </nav>
+  </div>
+
+  <main>
+    <!-- HERO / HOME -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="hero-badge"><i class="fas fa-graduation-cap" style="margin-right: 6px;"></i> ICT · NVQ pathway</span>
+          <h1>Dumindu Dulanjana</h1>
+          <p>ICT student with NVQ Level 4 qualification, currently pursuing Level 5 (Diploma). Passionate about technology, networking, and building digital solutions.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn"><i class="fas fa-paper-plane" style="margin-right: 8px;"></i>Contact me</a>
+            <a href="#qualifications" class="btn btn-outline"><i class="fas fa-file-alt"></i> Qualifications</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="avatar-placeholder">
+            <span>D</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <div class="container">
+        <h2 class="section-title">About me</h2>
+        <div class="about-text">
+          <p>I'm Dumindu Dulanjana, an enthusiastic ICT student from Sri Lanka. I hold an <strong>NVQ Level 4 qualification in ICT</strong> and I'm currently advancing my skills through the <strong>NVQ Level 5 Diploma</strong> program. My coursework has given me hands‑on experience in programming, networking basics, system analysis, and web technologies.</p>
+          <div class="about-highlight">
+            <i class="fas fa-check-circle" style="color:#2563eb; margin-right: 10px;"></i> 
+            I'm eager to apply my knowledge in real‑world projects, collaborate with teams, and continue learning every day. This portfolio is a glimpse into my professional journey.
+          </div>
+        </div>
+      </div>
+    </section>
+	
+	<!-- GALLERY -->
+<section id="gallery" class="gallery">
+  <div class="container">
+    <h2 class="section-title">Photo Gallery</h2>
+    <div id="gallery-container" class="gallery-grid"></div>
+    <div class="gallery-show-more">
+      <button id="show-more-btn" class="btn btn-outline">Show More</button>
+    </div>
+  </div>
+</section>
+
+<!-- Modal for full gallery -->
+<div id="gallery-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h3>All Photos</h3>
+    <div id="modal-gallery-container" class="gallery-grid"></div>
+  </div>
+</div>
+
+ <!-- QUALIFICATIONS -->
+<section id="qualifications" class="qualifications">
+  <div class="container">
+    <h2 class="section-title">Qualifications</h2>
+    <div id="quals-container" class="cards-grid">
+      <!-- Cards will be injected by JavaScript -->
+    </div>
+  </div>
+</section>
+
+    <!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="container">
+    <h2 class="section-title">Contcat Me</h2>
+    
+    <div class="contact-grid">
+      <!-- Left column: info cards + QR -->
+      <div class="contact-info-column">
+        
+        <!-- Email card -->
+        <div class="contact-card">
+          <div class="contact-card-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-card-content">
+            <h3>Email</h3>
+            <a href="mailto:dumindudulanjana999@gmail.com">dumindudulanjana999@gmail.com</a>
+          </div>
+        </div>
+
+        <!-- Phone card -->
+        <div class="contact-card">
+          <div class="contact-card-icon">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <div class="contact-card-content">
+            <h3>Phone</h3>
+            <a href="tel:+94766051791">+94 76 605 1791</a>
+          </div>
+        </div>
+
+        <!-- Location card -->
+        <div class="contact-card">
+          <div class="contact-card-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-card-content">
+            <h3>Location</h3>
+            <p>Sri Lanka, Ruwanwella</p>
+          </div>
+        </div>
+
+        <!-- QR card -->
+        <div class="contact-card qr-card">
+          <div class="contact-card-icon">
+            <i class="fas fa-qrcode"></i>
+          </div>
+          <div class="contact-card-content">
+            <h3>Scan to save contact</h3>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AFN%3ADumindu%20Dulanjana%0AEMAIL%3Adumindudulanjana999%40gmail.com%0ATEL%3A%2B94766051791%0AEND%3AVCARD" 
+                 alt="QR code with contact details">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: contact form -->
+      <div class="contact-form-column">
+        <form id="contact-form" class="contact-form">
+          <h3>Send a message</h3>
+          <div class="form-group">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <input type="tel" id="phone" name="phone" placeholder="Your Contact Number" required>
+          </div>
+          <div class="form-group">
+            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary send-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p style="margin-bottom: 10px;">© 2026 Dumindu Dulanjana — ICT portfolio</p>
+      <p style="font-size: 0.9rem;">
+        <i class="fas fa-envelope" style="margin: 0 6px;"></i> dumindudulanjana999@gmail.com &nbsp;|&nbsp; 
+        <i class="fas fa-phone"></i> +94 76 605 1791
+      </p>
+      <div style="margin-top: 18px; display: flex; gap: 24px; justify-content: center; font-size: 1.3rem;">
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- external JavaScript -->
+
+<script>
+  renderQualifications('quals-container', false);
+</script>
+<script>
+
+
+  // Show appropriate auth link in navbar
+  const authSpan = document.getElementById('auth-link');
+  if (localStorage.getItem('portfolio_logged_in') === 'true') {
+    authSpan.innerHTML = '<a href="dashboard.html">Dashboard</a> <button id="logout-btn-nav" style="background:none; border:none; color:var(--text-secondary); margin-left:10px;" title="Logout"><i class="fas fa-sign-out-alt"></i></button>';
+    document.getElementById('logout-btn-nav')?.addEventListener('click', () => {
+      localStorage.removeItem('portfolio_logged_in');
+      localStorage.removeItem('user_email');
+      localStorage.removeItem('user_name');
+      window.location.reload();
+    });
+  } else {
+    authSpan.innerHTML = '<a href="login.html">Login</a>';
+  }
+  
+</script>
+<script src="script.js"></script>
+<script src="qualifications.js"></script>
+<script src="gallery.js"></script>
+<script src="messages.js"></script>
+<script>
+  // Render qualifications
+  const qualsContainer = document.getElementById('quals-container');
+  if (qualsContainer) renderQualifications('quals-container', false);
+  
+  // Render gallery
+  const galleryContainer = document.getElementById('gallery-container');
+  if (galleryContainer) renderGallery('gallery-container', 5);
+  
+  // Modal setup
+  const modal = document.getElementById('gallery-modal');
+  const showMoreBtn = document.getElementById('show-more-btn');
+  const closeModal = document.querySelector('.close-modal');
+  
+  if (showMoreBtn) {
+    showMoreBtn.addEventListener('click', () => {
+      renderGallery('modal-gallery-container'); // all images
+      modal.style.display = 'block';
+    });
+  }
+  
+  if (closeModal) {
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+  }
+  
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) modal.style.display = 'none';
+  });
+  
+  // Optional refresh button
+  const refreshBtn = document.getElementById('refresh-gallery');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => renderGallery('gallery-container', 5));
+  }
+</script>
+</body>
+</html>
