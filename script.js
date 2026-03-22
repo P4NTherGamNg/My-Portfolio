@@ -30,7 +30,7 @@
 
     // ---------- GOOGLE SHEETS INTEGRATION (Replace with YOUR Apps Script URL) ----------
     // IMPORTANT: After setting up Google Apps Script, replace this URL.
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwnE0KsBWYa2cA5ZAQqP10_CzAwR6df1pyVlhJ9dgB7DluVMX9bXX9AFNQHfNt2djdd/exec";  // <---- PASTE YOUR WEB APP URL HERE
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoVItuEQEBumvXiWV3U9ymwO9J-_xdmFxJuB-aNDoMQZOOKGpuICAxWHqh36WJyxSJ/exec";  // <---- PASTE YOUR WEB APP URL HERE
 
     const contactForm = document.getElementById('contactForm');
     const feedbackDiv = document.getElementById('formFeedback');
