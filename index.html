@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dumindu Dulanjana | Portfolio</title>
+  <!-- Google Fonts + Font Awesome 6 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!--CSS-->
+  <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+  <nav>
+    <div class="container nav-container">
+      <div class="logo">Dumindu.dev</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#qualification">Qualification</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+        <button class="dark-toggle" id="darkModeToggle"><i class="fas fa-moon"></i> Dark</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Home Section -->
+    <section id="home">
+      <div class="container hero">
+        <div class="hero-content">
+          <h1>Hi, I'm <span class="highlight">Dumindu Dulanjana</span></h1>
+          <p>ICT Enthusiast | Frontend Developer | NVQ Level 5 Candidate</p>
+          <p style="margin-top: 20px;">Crafting digital experiences with modern web tech.</p>
+        </div>
+        <div class="hero-image">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+          <div class="info-card"><i class="fas fa-user-astronaut"></i><div><strong>Name</strong><br>Dumindu Dulanjana</div></div>
+          <div class="info-card"><i class="fas fa-birthday-cake"></i><div><strong>Birthday</strong><br>28 September 2004 <span id="ageDisplay"></span></div></div>
+          <div class="info-card"><i class="fas fa-map-marker-alt"></i><div><strong>Location</strong><br>Sri Lanka, Ruwanwella</div></div>
+          <div class="info-card"><i class="fas fa-code"></i><div><strong>Role</strong><br>Web Developer & ICT Student</div></div>
+        </div>
+        <p style="margin-top: 32px; background: var(--card-bg); padding: 24px; border-radius: 28px; border-left: 4px solid var(--accent);">Passionate about building responsive websites, exploring new tech, and bridging creativity with functionality. Currently pursuing advanced ICT studies while working on real-world projects.</p>
+      </div>
+    </section>
+
+ <!-- Qualification Section -->
+    <section id="qualification">
+      <div class="container">
+        <h2 class="section-title">Qualifications</h2>
+        <div class="qual-list">
+          <div class="qual-item"><div class="qual-title">🎓 ICT NVQ Level 04 - Completed</div><div>Ruwanwella VTA | Graduated with distinction</div><div class="badge">Completed</div></div>
+          <div class="qual-item"><div class="qual-title">📘 ICT NVQ Level 05 - Ongoing</div><div>Started: 09 January 2026 · 18 months diploma course (Advanced Web & System Development)</div><div class="badge">In Progress</div></div>
+          <div class="qual-item"><div class="qual-title">🌐 Additional Certifications</div><div>• Certificate in Graphic Design (CAD Academy)<br>• Python for Beginners - University of Moratuwa (online)<br>• Responsive Web Design - freeCodeCamp</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">Tech & Skills</h2>
+        <div class="skills-container">
+          <div class="skill-tag"><i class="fab fa-html5"></i> HTML5</div>
+          <div class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</div>
+          <div class="skill-tag"><i class="fab fa-js"></i> JavaScript</div>
+          <div class="skill-tag"><i class="fab fa-react"></i> React</div>
+          <div class="skill-tag"><i class="fab fa-figma"></i> Figma</div>
+          <div class="skill-tag"><i class="fas fa-database"></i> Google Sheets API</div>
+          <div class="skill-tag"><i class="fab fa-git-alt"></i> Git/GitHub</div>
+          <div class="skill-tag"><i class="fas fa-mobile-alt"></i> Responsive Design</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-wrapper">
+          <!-- left side details -->
+          <div class="contact-info">
+            <div class="contact-detail"><i class="fas fa-envelope"></i><div><strong>Email</strong><br>dumindudulanjana999@gmail.com</div></div>
+            <div class="contact-detail"><i class="fas fa-phone-alt"></i><div><strong>Phone</strong><br>+94 76 6051 791</div></div>
+            <div class="contact-detail"><i class="fas fa-map-pin"></i><div><strong>Location</strong><br>Sri Lanka, Ruwanwella</div></div>
+            <div style="margin-top: 24px;"><i class="fas fa-clock"></i> Quick response within 24h</div>
+          </div>
+
+          <!-- right side form -->
+          <div class="contact-form">
+            <h3 style="margin-bottom: 20px;">Send a Message</h3>
+            <form id="contactForm">
+              <div class="form-group"><input type="text" id="name" placeholder="Full Name" required></div>
+              <div class="form-group"><input type="email" id="email" placeholder="Email Address" required></div>
+              <div class="form-group"><input type="tel" id="phone" placeholder="Phone Number"></div>
+              <div class="form-group"><textarea rows="4" id="message" placeholder="Your message..." required></textarea></div>
+              <button type="submit" class="btn" id="sendBtn"><i class="fas fa-paper-plane"></i> Send Message</button>
+              <div id="formFeedback" class="form-message"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <p>© 2026 Dumindu Dulanjana | Built with <i class="fas fa-heart" style="color: var(--accent);"></i> • <a href="admin.html" target="_blank" style="color: var(--accent);">Admin Dashboard</a></p>
+    </footer>
+  </main>
+  
+    <!-- external JavaScript -->
+  <script src="script.js"></script>
+  </body>
+</html>
