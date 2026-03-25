@@ -62,48 +62,68 @@
       text-align: center;
       padding: 1rem;
     }
+    .loading {
+      text-align: center;
+      padding: 1rem;
+    }
+    .note {
+      background: rgba(255,255,0,0.2);
+      border-left: 4px solid #ff0;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
 <div class="container">
   <h1>📩 Contact Form Submissions</h1>
+  <div class="note">
+    ⚠️ <strong>Important:</strong> This page must be opened via a local web server (e.g., <code>http://localhost:8000/admin.html</code>) 
+    to avoid CORS issues. Do not open the file directly from your file system (<code>file://</code>). 
+    Run <code>python -m http.server 8000</code> or use Live Server in VS Code.
+  </div>
   <div class="controls">
     <button id="refreshBtn">⟳ Refresh Data</button>
   </div>
   <div id="messageTable">
     <table id="dataTable">
       <thead>
-        <tr><th>Timestamp</th><th>Name</th><th>Email</th><th>Phone</th><th>Message</th></tr>
+        <tr><th>Timestamp</th><th>Name</th><th>Email</th><th>Phone</th><th>Message</th> </tr>
       </thead>
       <tbody id="tableBody">
-        <tr><td colspan="5" style="text-align:center;">Loading messages...</td></tr>
+        <tr><td colspan="5" class="loading">Loading messages...</td> </tr>
       </tbody>
     </table>
   </div>
 </div>
 
 <script>
-  // Replace with your deployed Google Apps Script Web App URL that returns JSON data
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKyVS3gs2mICZc3ySR1ZPmoUiOg60s3WIEGhi6NVpj-dR2kc_vCaOn1qHOAL2Xes8ICQ/exec"; // MUST BE SAME AS IN CONTACT FORM
+  // ======================== CONFIGURATION ========================
+  // REPLACE WITH YOUR ACTUAL GOOGLE APPS SCRIPT WEB APP URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKyVS3gs2mICZc3ySR1ZPmoUiOg60s3WIEGhi6NVpj-dR2kc_vCaOn1qHOAL2Xes8ICQ/exec";
+  // ===============================================================
+
   const tableBody = document.getElementById('tableBody');
 
   async function fetchMessages() {
-    tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading...</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="5" class="loading">Fetching data...</td></tr>';
     try {
-      // Append a parameter to indicate GET request for data
-      const response = await fetch(`${SCRIPT_URL}?action=getData`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-      });
+      // No custom headers → avoids preflight request (simple GET)
+      const response = await fetch(SCRIPT_URL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       if (data && data.length > 0) {
         renderTable(data);
       } else {
-        tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No messages yet.</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="5" class="loading">No messages yet. Submit a test message from the contact form.</td></tr>';
       }
     } catch (err) {
-      console.error(err);
-      tableBody.innerHTML = '<tr><td colspan="5" class="error">Error fetching data. Ensure Google Script is deployed and returns JSON.</td></tr>';
+      console.error('Fetch error:', err);
+      tableBody.innerHTML = `<tr><td colspan="5" class="error">Error: ${err.message}.<br>Make sure the script URL is correct and deployed with "Anyone" access.<br>Also ensure you are running this page from a local server (http://localhost).</td></tr>`;
     }
   }
 
@@ -111,15 +131,24 @@
     tableBody.innerHTML = '';
     rows.forEach(row => {
       const tr = document.createElement('tr');
-      // row order: Timestamp, Name, Email, Phone, Message
       tr.innerHTML = `
-        <td>${row.Timestamp || ''}</td>
-        <td>${row.Name || ''}</td>
-        <td>${row.Email || ''}</td>
-        <td>${row.Phone || ''}</td>
-        <td>${row.Message || ''}</td>
+          <td>${escapeHtml(row.Timestamp || '')}</td>
+          <td>${escapeHtml(row.Name || '')}</td>
+          <td>${escapeHtml(row.Email || '')}</td>
+          <td>${escapeHtml(row.Phone || '')}</td>
+          <td>${escapeHtml(row.Message || '')}</td>
       `;
       tableBody.appendChild(tr);
+    });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
     });
   }
 
