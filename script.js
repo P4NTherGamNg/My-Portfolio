@@ -255,3 +255,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
  }
 });
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        document
+        .getElementById("preloader")
+        .classList.add("fade-out");
+
+    },3000);
+
+});

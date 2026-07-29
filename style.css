@@ -656,3 +656,169 @@ body.dark-mode .progress-bar {
     padding-top: 110px;
   }
 }
+
+/* ===============================
+        MODERN PRELOADER
+================================ */
+
+#preloader{
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg,#020617,#071b3d,#02142f,#000);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999999;
+    overflow:hidden;
+}
+
+/* Background Glow */
+
+#preloader::before{
+    content:"";
+    position:absolute;
+    width:450px;
+    height:450px;
+    background:#00bfff;
+    filter:blur(180px);
+    opacity:.35;
+    animation: glow 5s ease-in-out infinite;
+}
+
+.loader-box{
+
+    width:340px;
+    padding:40px;
+    text-align:center;
+
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:25px;
+
+    box-shadow:
+    0 0 30px rgba(0,191,255,.25);
+
+    position:relative;
+
+}
+
+.loader-logo{
+
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    object-fit:cover;
+
+    position:relative;
+    z-index:2;
+
+}
+
+.ring{
+
+    position:absolute;
+
+    top:35px;
+    left:50%;
+    transform:translateX(-50%);
+
+    width:110px;
+    height:110px;
+
+    border-radius:50%;
+
+    border:4px solid rgba(255,255,255,.15);
+
+    border-top:4px solid #00bfff;
+
+    animation:spin 1s linear infinite;
+
+}
+
+.loader-box h2{
+
+    color:#fff;
+    margin-top:25px;
+    font-size:28px;
+    letter-spacing:3px;
+
+}
+
+.loader-box p{
+
+    color:#b5d9ff;
+    margin:10px 0 30px;
+
+}
+
+/* Progress Bar */
+
+.progress{
+
+    width:100%;
+    height:8px;
+
+    background:#17324d;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    width:0%;
+    height:100%;
+
+    background:linear-gradient(90deg,#00bfff,#00ffee,#00bfff);
+
+    animation:loading 3s linear forwards;
+
+}
+
+/* Animation */
+
+@keyframes spin{
+
+    100%{
+        transform:translateX(-50%) rotate(360deg);
+    }
+
+}
+
+@keyframes loading{
+
+    0%{
+        width:0%;
+    }
+
+    100%{
+        width:100%;
+    }
+
+}
+
+@keyframes glow{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.25);
+    }
+
+}
+
+.fade-out{
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.8s;
+
+}
