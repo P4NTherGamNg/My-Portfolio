@@ -202,8 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================
   // IMPORTANT: Replace this URL with your own Google Apps Script Web App URL.
   // The script should accept POST requests with form data and append a row to your sheet.
-  const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyse_KxpeDr9mfzGOMfMD4Pp0F25a-sUkAtDR_htqP0lMJVfbqD1xYvQcEPl9UviCTgMA/exec';
-
+  const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwEj4O55pkWiipiv6DBJWYiFSkt8HbFJVNKv_NgY-Do5YRLinKj-palXY6Jyw2spor-wg/exec';
+  
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
@@ -264,6 +264,19 @@ window.addEventListener("load",()=>{
         .getElementById("preloader")
         .classList.add("fade-out");
 
-    },3000);
+    },1000);
+
+});
+
+/* ==========================
+   Mouse Glow Effect
+========================== */
+
+const glow = document.querySelector(".cursor-glow");
+
+document.addEventListener("mousemove",(e)=>{
+
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
 
 });

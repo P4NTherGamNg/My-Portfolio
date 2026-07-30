@@ -66,6 +66,7 @@ body {
   margin: 0 auto;
   padding: 0 24px;
 }
+
 /* Fixed Navbar */
 .navbar {
   position: fixed;
@@ -88,6 +89,13 @@ body.dark-mode .navbar {
   align-items: center;
   padding: 16px 24px;
 }
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
 .logo {
   font-weight: 700;
   font-size: 1.8rem;
@@ -96,7 +104,11 @@ body.dark-mode .navbar {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.5px;
+  flex:1;
+  
 }
+
+
 .nav-links {
   display: flex;
   gap: 20px;
@@ -129,61 +141,16 @@ body.dark-mode .navbar {
 }
 
 .menu-btn{
-	display:none;
+    display:none;
+    font-size:30px;
+    color:var(--text-primary);
+    cursor:pointer;
+    user-select:none;
 }
 
 
-@media(max-width:768px){
 
-    .navbar{
-        
-		display:flex;
-		justify-content:space-between;
-		
-    }
-	
-	.nav-right{
-		display:flex;
-		align-items:center;
-		gap:300px;
-		
-	}
-	
-	
 
-    .menu-btn{
-        display:block;
-    }
-
-    .nav-links{
-
-        position:absolute;
-        top:100%;
-        left:0;
-
-        width:100%;
-        background:var(--bg-primary);
-
-        flex-direction:column;
-        text-align:center;
-        gap:0;
-
-        overflow:hidden;
-
-        max-height:0;
-
-        transition:max-height .1s ease;
-    }
-
-    .nav-links.active{
-        max-height:400px;
-    }
-
-    .nav-links li{
-        padding:25px 0;
-        border-top:1px solid rgba(255,255,255,.1);
-    }
-}
 
 .theme-toggle {
   background: none;
@@ -199,6 +166,7 @@ body.dark-mode .navbar {
   width: 40px;
   height: 40px;
   transition: background-color 0.2s, color 0.2s;
+  justify-content:center;
 }
 .theme-toggle:hover {
   background-color: var(--badge-bg);
@@ -216,9 +184,14 @@ body.dark-mode .navbar {
   box-shadow: var(--shadow-sm);
   border: none;
   cursor: pointer;
+  transition:.35s;
 }
 .btn:hover {
   background-color: var(--btn-primary-hover);
+  transform:translateY(-5px) scale(1.05);
+
+  box-shadow:0 15px 30px rgba(37,99,235,.35);
+
 }
 .btn-outline {
   background-color: transparent;
@@ -260,6 +233,9 @@ body.dark-mode .navbar {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  
+	
+
 }
 .hero-content p {
   font-size: 1.2rem;
@@ -343,7 +319,18 @@ body.dark-mode .navbar {
   aspect-ratio: 1 / 1;
   width: 100%;
   max-width: 280px;
+  transition:.5s;
+  
+ 
 }
+
+.about-photo img:hover{
+
+transform:scale(1.08);
+box-shadow:0 15px 30px rgba(37,99,235,.35);
+
+}
+
 .about-highlight {
   background: var(--highlight-bg);
   padding: 20px 28px;
@@ -433,6 +420,7 @@ body.dark-mode .navbar {
   color: var(--text-muted);
   margin-bottom: 20px;
 }
+
 .status {
   font-weight: 600;
   color: var(--text-primary);
@@ -588,34 +576,7 @@ body.dark-mode .progress-bar {
   font-size: 1.1rem;
   margin-top: 10px;
 }
-@media (max-width: 768px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-  .contact-card {
-    padding: 20px;
-  }
-  .contact-card-icon {
-    width: 48px;
-    height: 48px;
-  }
-  .contact-card-icon i {
-    font-size: 1.5rem;
-  }
-  .about-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-  .about-photo {
-    order: -1;
-    margin-bottom: 20px;
-  }
-  /* adjust card width on small screens */
-  .qual-card {
-    width: 280px;
-  }
-}
+
 .footer {
   background: var(--footer-bg);
   color: var(--footer-text);
@@ -631,30 +592,6 @@ body.dark-mode .progress-bar {
 }
 .footer a:hover {
   color: white;
-}
-@media (max-width: 700px) {
-  .hero-content h1 {
-    font-size: 2.5rem;
-  }
-  .nav-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .nav-links {
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .avatar-placeholder {
-    width: 200px;
-    height: 200px;
-  }
-  .avatar-placeholder span {
-    font-size: 4rem;
-  }
-  body {
-    padding-top: 110px;
-  }
 }
 
 /* ===============================
@@ -734,7 +671,7 @@ body.dark-mode .progress-bar {
 
     border-top:4px solid #00bfff;
 
-    animation:spin 1s linear infinite;
+    animation:spin 0.5s linear infinite;
 
 }
 
@@ -776,7 +713,7 @@ body.dark-mode .progress-bar {
 
     background:linear-gradient(90deg,#00bfff,#00ffee,#00bfff);
 
-    animation:loading 3s linear forwards;
+    animation:loading 1s linear forwards;
 
 }
 
@@ -820,5 +757,355 @@ body.dark-mode .progress-bar {
     visibility:hidden;
 
     transition:.8s;
+
+}
+
+
+/* ===========================
+   MOBILE RESPONSIVE (700px)
+=========================== */
+
+@media (max-width:768px){
+
+    /* Navbar */
+    .navbar{
+        display:flex;
+        justify-content:space-between;
+    }
+
+    .nav-container{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        flex-wrap:nowrap;
+        gap:12px;
+    }
+	
+	.logo{
+    font-size:1.25rem;
+    white-space:nowrap;
+	max-width:70%;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	letter-spacing:.5px;
+	
+	
+	}
+
+    .nav-right{
+        display:flex;
+        align-items:center;
+        gap:15px;
+		margin-left:auto;
+    }
+
+    .menu-btn{
+        display:block;
+        font-size:30px;
+        color:var(--text-primary);
+        cursor:pointer;
+    }
+
+    /* Dropdown Menu */
+    .nav-links{
+        position:absolute;
+        top:100%;
+        left:0;
+
+        width:100%;
+        background:var(--bg-primary);
+
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+
+        gap:0;
+
+        overflow:hidden;
+        max-height:0;
+
+        transition:max-height .3s ease;
+        box-shadow:0 5px 15px rgba(0,0,0,.15);
+        z-index:999;
+    }
+
+    .nav-links.active{
+        max-height:400px;
+    }
+
+    .nav-links li{
+        width:100%;
+        list-style:none;
+        padding:20px 0;
+        border-top:1px solid rgba(0,0,0,.08);
+    }
+
+    .nav-links li a{
+        display:block;
+        width:100%;
+    }
+
+    /* Hero */
+    .hero-content h1{
+        font-size:2.5rem;
+    }
+
+    .avatar-placeholder{
+        width:200px;
+        height:200px;
+    }
+
+    .avatar-placeholder span{
+        font-size:4rem;
+    }
+
+    body{
+        padding-top:110px;
+    }
+
+    /* About */
+    .about-grid{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .about-photo{
+        order:-1;
+        margin-bottom:20px;
+    }
+
+    /* Qualification Cards */
+    .qual-card{
+        width:280px;
+    }
+
+    /* Contact */
+    .contact-grid{
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+
+    .contact-card{
+        padding:20px;
+    }
+
+    .contact-card-icon{
+        width:48px;
+        height:48px;
+    }
+
+    .contact-card-icon i{
+        font-size:1.5rem;
+    }
+
+}
+
+
+/* ==========================
+   Mouse Glow Effect
+========================== */
+
+.cursor-glow{
+    position:fixed;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    pointer-events:none;
+
+    background:radial-gradient(circle,
+        rgba(37,99,235,.30) 0%,
+        rgba(37,99,235,.15) 35%,
+        rgba(37,99,235,0) 70%);
+
+    transform:translate(-50%,-50%);
+    z-index:0;
+
+    transition:
+        left .08s linear,
+        top .08s linear;
+}
+
+/* Make sure page content stays above glow */
+body > *{
+    position:relative;
+    z-index:1;
+}
+
+/* ===========================
+      PREMIUM 3D LOGO
+=========================== */
+
+.logo{
+
+    position:relative;
+    display:inline-block;
+
+    font-family:"Inter",sans-serif;
+    font-size:1.8rem;
+    font-weight:800;
+    letter-spacing:1px;
+
+    background:linear-gradient(
+        120deg,
+        #ffffff 0%,
+        #dbeafe 20%,
+        #38bdf8 40%,
+        #2563eb 60%,
+        #7c3aed 80%,
+        #ffffff 100%
+    );
+
+    background-size:300% 300%;
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+
+    filter:
+        drop-shadow(0 0 4px rgba(56,189,248,.45))
+        drop-shadow(0 0 10px rgba(37,99,235,.35));
+
+    animation:
+        logoGradient 8s linear infinite,
+        logoFloat 4s ease-in-out infinite,
+        logoGlow 2.5s ease-in-out infinite alternate;
+}
+
+/* ===========================
+      Magical Shine
+=========================== */
+
+.logo::before{
+
+    content:"";
+
+    position:absolute;
+    inset:-6px;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.8),
+        transparent
+    );
+
+    transform:translateX(-180%) skewX(-25deg);
+
+    animation:shine 4s linear infinite;
+
+    pointer-events:none;
+
+    opacity:.9;
+}
+
+/* ===========================
+      Soft Aura
+=========================== */
+
+.logo::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:110%;
+    height:120%;
+
+    transform:translate(-50%,-50%);
+
+    background:radial-gradient(circle,
+        rgba(59,130,246,.25),
+        transparent 70%);
+
+    filter:blur(18px);
+
+    z-index:-1;
+
+    animation:aura 3s ease-in-out infinite alternate;
+
+}
+
+/* ===========================
+        Animations
+=========================== */
+
+@keyframes logoGradient{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    100%{
+        background-position:300% 50%;
+    }
+
+}
+
+@keyframes logoGlow{
+
+    from{
+
+        filter:
+        drop-shadow(0 0 5px rgba(56,189,248,.45))
+        drop-shadow(0 0 10px rgba(37,99,235,.35));
+
+    }
+
+    to{
+
+        filter:
+        drop-shadow(0 0 10px rgba(56,189,248,.8))
+        drop-shadow(0 0 20px rgba(37,99,235,.8))
+        drop-shadow(0 0 35px rgba(124,58,237,.65));
+
+    }
+
+}
+
+@keyframes logoFloat{
+
+    0%,100%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-3px);
+    }
+
+}
+
+@keyframes shine{
+
+    from{
+        transform:translateX(-180%) skewX(-25deg);
+    }
+
+    to{
+        transform:translateX(180%) skewX(-25deg);
+    }
+
+}
+
+@keyframes aura{
+
+    from{
+
+        opacity:.25;
+        transform:translate(-50%,-50%) scale(.95);
+
+    }
+
+    to{
+
+        opacity:.6;
+        transform:translate(-50%,-50%) scale(1.08);
+
+    }
 
 }
