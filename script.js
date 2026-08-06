@@ -273,10 +273,104 @@ window.addEventListener("load",()=>{
 ========================== */
 
 const glow = document.querySelector(".cursor-glow");
+const ring = document.querySelector(".cursor-ring");
+
+let mouseX = window.innerWidth/2;
+let mouseY = window.innerHeight/2;
+
+let glowX = mouseX;
+let glowY = mouseY;
+
+let ringX = mouseX;
+let ringY = mouseY;
 
 document.addEventListener("mousemove",(e)=>{
 
-    glow.style.left = e.clientX + "px";
-    glow.style.top = e.clientY + "px";
+    mouseX=e.clientX;
+    mouseY=e.clientY;
+
+});
+
+function animate(){
+
+    glowX+=(mouseX-glowX)*0.12;
+    glowY+=(mouseY-glowY)*0.12;
+
+    ringX+=(mouseX-ringX)*0.28;
+    ringY+=(mouseY-ringY)*0.28;
+
+    glow.style.left=glowX+"px";
+    glow.style.top=glowY+"px";
+
+    ring.style.left=ringX+"px";
+    ring.style.top=ringY+"px";
+
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+
+document.querySelectorAll(
+"a,button,.btn,.qual-card,.hobby-card,.contact-card,.theme-toggle,.menu-btn"
+).forEach(item=>{
+
+    item.addEventListener("mouseenter",()=>{
+
+        ring.classList.add("cursor-hover");
+        glow.classList.add("cursor-glow-hover");
+
+    });
+
+    item.addEventListener("mouseleave",()=>{
+
+        ring.classList.remove("cursor-hover");
+        glow.classList.remove("cursor-glow-hover");
+
+    });
+
+});
+
+/* ==========================
+      CURSOR PARTICLES
+========================== */
+
+document.addEventListener("mousemove",(e)=>{
+
+    if(Math.random()>0.45) return;
+
+    const particle=document.createElement("div");
+    particle.className="cursor-particle";
+
+    particle.style.left=e.clientX+"px";
+    particle.style.top=e.clientY+"px";
+
+    const size=Math.random()*6+4;
+
+    particle.style.width=size+"px";
+    particle.style.height=size+"px";
+
+    document.body.appendChild(particle);
+
+    const x=(Math.random()-0.5)*40;
+    const y=(Math.random()-0.5)*40;
+
+    particle.animate([
+        {
+            transform:"translate(-50%,-50%)",
+            opacity:1
+        },
+        {
+            transform:`translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+            opacity:0
+        }
+    ],{
+        duration:700,
+        easing:"ease-out"
+    });
+
+    setTimeout(()=>{
+        particle.remove();
+    },700);
 
 });
