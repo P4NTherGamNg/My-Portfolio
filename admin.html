@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="dark">
+<title>Admin · Portfolio</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--text:#f1f5f9;--muted:#94a3b8;--blue:#3b82f6;--blue2:#2563eb;--red:#ef4444;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
+.hidden{display:none!important}
+.box{max-width:420px;margin:12vh auto 0;padding:32px 28px;background:var(--card);border:1px solid var(--line);border-radius:24px}
+.box h1{font-size:1.4rem;margin-bottom:6px}
+.box p{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+.box code{background:var(--bg);padding:2px 6px;border-radius:6px;font-size:.85rem}
+.err{color:#fca5a5;font-size:.9rem;min-height:1.3em;margin-top:8px}
+input,textarea,select{width:100%;padding:10px 12px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:12px;font:inherit;font-size:.95rem}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--blue)}
+textarea{resize:vertical}
+label.f{display:block;margin-bottom:12px}
+label.f>span{display:block;font-size:.8rem;color:var(--muted);margin-bottom:5px}
+.btn{text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:none;border-radius:999px;background:var(--blue2);color:#fff;font:inherit;font-weight:600;font-size:.92rem;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--blue)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+.btn.ghost:hover{border-color:var(--blue)}
+.btn.full{width:100%;justify-content:center}
+header.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;background:rgba(15,23,42,.95);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+header.top b{font-size:1.05rem}
+header.top small{color:var(--muted);margin-right:10px}
+nav.tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 20px 0;max-width:980px;margin:0 auto}
+nav.tabs button{white-space:nowrap;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font:inherit;font-size:.9rem;cursor:pointer}
+nav.tabs button.on{background:var(--blue2);border-color:var(--blue2);color:#fff}
+main{max-width:980px;margin:0 auto;padding:18px 20px 80px}
+.panel{display:none}
+.panel.on{display:block}
+.panel h2{font-size:1.3rem;margin-bottom:4px}
+.panel>p.hint{color:var(--muted);font-size:.9rem;margin-bottom:18px}
+.item,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-bottom:14px}
+.item-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.item-head b{font-size:.95rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acts{display:flex;gap:6px;flex-shrink:0}
+.acts button,.gacts button{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);cursor:pointer;font-size:.85rem}
+.acts button:hover,.gacts button:hover{border-color:var(--blue)}
+.acts button.danger:hover,.gacts button.danger:hover{border-color:var(--red);color:var(--red)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0 14px}
+.fields .wide{grid-column:1/-1}
+.row{display:flex;align-items:center;gap:8px}
+.pv{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;color:#93c5fd}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:16px}
+.g{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.g img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+.gacts{display:flex;justify-content:center;gap:6px;padding:8px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);max-width:90vw;padding:12px 20px;border-radius:14px;background:#166534;color:#fff;font-size:.92rem;opacity:0;pointer-events:none;transition:.25s;z-index:50}
+#toast.bad{background:#991b1b}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:600px){main{padding:14px 14px 80px}.item,.card{padding:14px}}
+</style>
+</head>
+<body>
+
+<div id="setup" class="box hidden">
+  <h1><i class="fas fa-triangle-exclamation"></i> Firebase not set up yet</h1>
+  <p>Open <code>firebase-config.js</code>, paste your Firebase web-app config, upload it to your hosting, then reload this page.</p>
+  <div class="err" id="setup-err"></div>
+</div>
+
+<div id="login" class="box hidden">
+  <h1><i class="fas fa-lock"></i> Admin login</h1>
+  <p>Sign in to edit your portfolio.</p>
+  <form id="login-form">
+    <label class="f"><span>Email</span><input type="email" id="l-email" autocomplete="username" required></label>
+    <label class="f"><span>Password</span><input type="password" id="l-pass" autocomplete="current-password" required></label>
+    <button class="btn full" type="submit">Sign in</button>
+    <div class="err" id="login-err"></div>
+  </form>
+</div>
+
+<div id="app" class="hidden">
+  <header class="top">
+    <b><i class="fas fa-sliders"></i> Portfolio admin</b>
+    <div><small id="who"></small><a class="btn ghost" href="index.html" target="_blank">View site</a> <button class="btn ghost" id="logout" type="button">Logout</button></div>
+  </header>
+  <nav class="tabs" id="tabs">
+    <button data-t="text" class="on">Text</button>
+    <button data-t="contact">Contact</button>
+    <button data-t="skills">Skills</button>
+    <button data-t="qualifications">Qualifications</button>
+    <button data-t="hobbies">Hobbies</button>
+    <button data-t="gallery">Gallery</button>
+  </nav>
+  <main>
+    <section class="panel on" id="p-text">
+      <h2>Hero &amp; About text</h2>
+      <p class="hint">Tip: wrap words in **double stars** to make them bold in the About paragraph.</p>
+      <div class="card">
+        <label class="f"><span>Hero title (your name)</span><input id="t-title"></label>
+        <label class="f"><span>Hero paragraph</span><textarea id="t-text" rows="3"></textarea></label>
+        <label class="f"><span>About me paragraph</span><textarea id="t-about" rows="6"></textarea></label>
+        <label class="f"><span>About me highlight box</span><textarea id="t-highlight" rows="3"></textarea></label>
+        <button class="btn" data-save="text"><i class="fas fa-floppy-disk"></i> Save</button>
+      </div>
+    </section>
+
+    <section class="panel" id="p-contact">
+      <h2>Contact details</h2>
+      <p class="hint">Shown in the Contact section, the footer and the QR code.</p>
+      <div class="card">
+        <label class="f"><span>Email</span><input id="c-email" type="email"></label>
+        <label class="f"><span>Phone</span><input id="c-phone"></label>
+        <label class="f"><span>Location</span><input id="c-location"></label>
+        <button class="btn" data-save="contact"><i class="fas fa-floppy-disk"></i> Save</button>
+      </div>
+    </section>
+
+    <section class="panel" id="p-skills">
+      <h2>Skills</h2>
+      <p class="hint">Icon = a <a href="https://fontawesome.com/search?o=r&m=free" target="_blank" style="color:#93c5fd">Font Awesome</a> class, e.g. <code>fab fa-html5</code> or <code>fas fa-database</code>.</p>
+      <div class="list"></div>
+      <div class="bar"><button class="btn ghost" data-add="skills"><i class="fas fa-plus"></i> Add skill</button><button class="btn" data-save="skills"><i class="fas fa-floppy-disk"></i> Save skills</button></div>
+    </section>
+
+    <section class="panel" id="p-qualifications">
+      <h2>Qualifications</h2>
+      <p class="hint">Progress bar can be automatic (from start/end dates), a fixed percentage, or hidden.</p>
+      <div class="list"></div>
+      <div class="bar"><button class="btn ghost" data-add="qualifications"><i class="fas fa-plus"></i> Add qualification</button><button class="btn" data-save="qualifications"><i class="fas fa-floppy-disk"></i> Save qualifications</button></div>
+    </section>
+
+    <section class="panel" id="p-hobbies">
+      <h2>Hobbies</h2>
+      <p class="hint">Keep it to about 10 or fewer so the About section stays compact.</p>
+      <div class="list"></div>
+      <div class="bar"><button class="btn ghost" data-add="hobbies"><i class="fas fa-plus"></i> Add hobby</button><button class="btn" data-save="hobbies"><i class="fas fa-floppy-disk"></i> Save hobbies</button></div>
+    </section>
+
+    <section class="panel" id="p-gallery">
+      <h2>Gallery</h2>
+      <p class="hint">Images are resized automatically in your browser and saved straight to the database. Uploads and deletes happen immediately.</p>
+      <div class="card">
+        <input type="file" id="g-file" accept="image/*" multiple>
+        <div class="err" id="g-status" style="color:var(--muted)"></div>
+      </div>
+      <div class="ggrid" id="g-grid"></div>
+    </section>
+  </main>
+</div>
+
+<div id="toast"></div>
+<script src="firebase-config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
