@@ -273,6 +273,56 @@
     } catch (err) { toast("Failed: " + (err.message || err), true); }
   });
 
+  /* ---------- Messages (from the website's contact form) ---------- */
+  let messages = [];
+  async function loadMessages() {
+    const box = $("#m-list");
+    try {
+      const q = await fb.getDocs(fb.query(fb.collection(db, "messages"), fb.orderBy("createdAt", "desc"), fb.limit(200)));
+      messages = q.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch (e) {
+      box.innerHTML = '<p class="hint" style="color:#fca5a5">Could not load messages: ' + esc(e.message || e) + '<br>Did you publish the updated firestore.rules?</p>';
+      return;
+    }
+    const unread = messages.filter(m => !m.read).length;
+    const badge = $("#m-badge");
+    badge.textContent = unread; badge.classList.toggle("hidden", !unread);
+    box.innerHTML = messages.map(m => {
+      const dt = m.createdAt && m.createdAt.toDate ? m.createdAt.toDate().toLocaleString() : "";
+      const tel = String(m.phone || "").replace(/\s+/g, "");
+      return `<div class="msg${m.read ? "" : " new"}" data-id="${esc(m.id)}">
+        <div class="item-head"><b>${esc(m.name)}${m.read ? "" : '<span class="tag">New</span>'}</b><span class="when">${esc(dt)}</span></div>
+        <div class="meta"><a href="mailto:${esc(m.email)}">${esc(m.email)}</a>${m.phone ? ` · <a href="tel:${esc(tel)}">${esc(m.phone)}</a>` : ""}</div>
+        <p class="body">${esc(m.message)}</p>
+        <div class="bar">
+          <button class="btn ghost" data-a="read" type="button">${m.read ? "Mark as unread" : "Mark as read"}</button>
+          <a class="btn ghost" href="mailto:${esc(m.email)}?subject=${encodeURIComponent("Re: your message")}">Reply</a>
+          <button class="btn ghost danger" data-a="del" type="button"><i class="fas fa-trash"></i> Delete</button>
+        </div></div>`;
+    }).join("") || '<p class="hint" style="color:var(--muted)">No messages yet.</p>';
+  }
+  $("#m-list").addEventListener("click", async e => {
+    const b = e.target.closest("button[data-a]"); if (!b) return;
+    const id = b.closest(".msg").dataset.id, m = messages.find(x => x.id === id);
+    try {
+      if (b.dataset.a === "del") {
+        if (!confirm("Delete this message permanently?")) return;
+        await fb.deleteDoc(fb.doc(db, "messages", id));
+      } else {
+        await fb.updateDoc(fb.doc(db, "messages", id), { read: !m.read });
+      }
+      await loadMessages();
+    } catch (err) { toast("Failed: " + (err.message || err), true); }
+  });
+  $("#m-refresh").addEventListener("click", loadMessages);
+  $("#m-delread").addEventListener("click", async () => {
+    const read = messages.filter(m => m.read);
+    if (!read.length) return toast("No read messages to delete.");
+    if (!confirm(`Delete ${read.length} read message(s) permanently?`)) return;
+    try { for (const m of read) await fb.deleteDoc(fb.doc(db, "messages", m.id)); toast("Deleted ✓"); await loadMessages(); }
+    catch (err) { toast("Failed: " + (err.message || err), true); }
+  });
+
   /* ---------- Load everything ---------- */
   async function loadAll() {
     try {
@@ -286,6 +336,7 @@
       $("#c-email").value = state.contact.email; $("#c-phone").value = state.contact.phone; $("#c-location").value = state.contact.location;
       ["skills", "hobbies", "qualifications"].forEach(renderList);
       await loadGallery();
+      await loadMessages();
     } catch (e) {
       toast("Could not load data: " + (e.message || e), true);
     }

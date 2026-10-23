@@ -16,8 +16,20 @@
 
   try {
     const { initializeApp } = await import(base + "firebase-app.js");
-    const { getFirestore, doc, getDoc, collection, getDocs, query, orderBy } = await import(base + "firebase-firestore.js");
+    const { getFirestore, doc, getDoc, collection, getDocs, query, orderBy, addDoc, serverTimestamp } = await import(base + "firebase-firestore.js");
     const db = getFirestore(initializeApp(cfg));
+
+    // Contact form → saved in Firestore ("messages"), read from admin.html
+    window.submitContactMessage = async m => {
+      await addDoc(collection(db, "messages"), {
+        name: String(m.name).slice(0, 100),
+        email: String(m.email).slice(0, 200),
+        phone: String(m.phone || "").slice(0, 40),
+        message: String(m.message).slice(0, 2000),
+        createdAt: serverTimestamp(),
+        read: false
+      });
+    };
 
     const snap = await getDoc(doc(db, "site", "content"));
     if (!snap.exists()) return;

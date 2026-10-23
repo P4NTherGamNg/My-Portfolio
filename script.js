@@ -96,7 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const iconDiv = document.createElement('div');
       iconDiv.className = 'card-icon';
-      iconDiv.innerHTML = `<i class="fas ${qual.icon}"></i>`;
+      const safeIcon = /^[\w\- ]+$/.test(qual.icon || '') ? qual.icon : 'fa-star';
+      const iconEl = document.createElement('i');
+      iconEl.className = 'fas ' + safeIcon;
+      iconDiv.appendChild(iconEl);
 
       const title = document.createElement('h3');
       title.textContent = qual.title;
@@ -110,7 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const statusDiv = document.createElement('div');
       statusDiv.className = 'status';
-      statusDiv.innerHTML = `<i class="fas ${qual.icon}"></i> ${qual.status}`;
+      const statusIcon = document.createElement('i');
+      statusIcon.className = 'fas ' + safeIcon;
+      statusDiv.appendChild(statusIcon);
+      statusDiv.appendChild(document.createTextNode(' ' + (qual.status || '')));
 
       card.appendChild(iconDiv);
       card.appendChild(title);
@@ -125,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (qual.progressType === 'fixed') {
           progress = qual.progressFixed;
         }
+        progress = Math.min(100, Math.max(0, Math.round(Number(progress) || 0)));
         const progressContainer = document.createElement('div');
         progressContainer.className = 'progress-container';
         progressContainer.innerHTML = `
@@ -173,23 +180,49 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('phone', phone);
-      formData.append('message', message);
+      // Spam protection: hidden honeypot field + 30 s cooldown
+      if (document.getElementById('website')?.value) { contactForm.reset(); return; }
+      const last = Number(sessionStorage.getItem('lastMsg') || 0);
+      if (Date.now() - last < 30000) {
+        alert('Please wait a few seconds before sending another message.');
+        return;
+      }
 
-      try {
-        const response = await fetch(GOOGLE_SHEETS_URL, {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors' // required for many Google Apps Script deployments
-        });
-        // With no-cors we cannot read response, so we assume success
+      const sendBtn = contactForm.querySelector('button[type="submit"]');
+      sendBtn.disabled = true;
+      let sent = false;
+
+      // 1) Firestore – shows up in the admin panel (Messages tab)
+      if (window.submitContactMessage) {
+        try {
+          await window.submitContactMessage({ name, email, phone, message });
+          sent = true;
+        } catch (err) {
+          console.error('Firestore send failed, falling back to Google Sheets:', err);
+        }
+      }
+
+      // 2) Fallback – Google Sheets (used if Firebase is not set up / fails)
+      if (!sent) {
+        try {
+          const formData = new FormData();
+          formData.append('name', name);
+          formData.append('email', email);
+          formData.append('phone', phone);
+          formData.append('message', message);
+          await fetch(GOOGLE_SHEETS_URL, { method: 'POST', body: formData, mode: 'no-cors' });
+          sent = true;
+        } catch (error) {
+          console.error('Error sending message:', error);
+        }
+      }
+
+      sendBtn.disabled = false;
+      if (sent) {
+        sessionStorage.setItem('lastMsg', String(Date.now()));
         alert('Message sent successfully!');
         contactForm.reset();
-      } catch (error) {
-        console.error('Error sending message:', error);
+      } else {
         alert('There was an error sending your message. Please try again later.');
       }
     });

@@ -19,3 +19,10 @@ Notes
   page still cannot change anything.
 - Gallery images are compressed in the browser and saved in Firestore (free Spark plan, no card).
 - Use **Authentication → Settings → User actions** to disable sign-ups if you want extra safety.
+
+## Contact-form messages (Messages tab)
+- Messages typed into the website's "Contact Me" form are saved in the Firestore `messages` collection and
+  appear in **admin.html → Messages** (newest first, unread highlighted, delete / mark read / reply).
+- IMPORTANT: if you set up Firebase before this feature existed, open Firestore → Rules and **publish the
+  new `firestore.rules`** again (keep your own UID in it), otherwise sending/reading messages is blocked.
+- If Firebase is unreachable, the form falls back to the old Google Sheets URL so no message is lost.

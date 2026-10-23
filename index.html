@@ -258,10 +258,11 @@
           <div class="contact-form-column">
             <form id="contact-form" class="contact-form">
               <h3>Send a message</h3>
-              <div class="form-group"><input type="text" id="name" placeholder="Your Name" required></div>
-              <div class="form-group"><input type="email" id="email" placeholder="Your Email" required></div>
-              <div class="form-group"><input type="tel" id="phone" placeholder="Your Contact Number" required></div>
-              <div class="form-group"><textarea id="message" rows="5" placeholder="Your Message" required></textarea></div>
+              <div class="form-group"><input type="text" id="name" placeholder="Your Name" maxlength="100" required></div>
+              <div class="form-group"><input type="email" id="email" placeholder="Your Email" maxlength="200" required></div>
+              <div class="form-group"><input type="tel" id="phone" placeholder="Your Contact Number" maxlength="40" required></div>
+              <div class="form-group"><textarea id="message" rows="5" placeholder="Your Message" maxlength="2000" required></textarea></div>
+              <div style="position:absolute;left:-9999px;" aria-hidden="true"><input type="text" id="website" tabindex="-1" autocomplete="off"></div>
               <button type="submit" class="btn btn-primary send-btn">Send Message</button>
             </form>
           </div>
@@ -279,7 +280,7 @@
   </footer>
 
   <script src="firebase-config.js"></script>
-  <script src="script.js?v=6"></script>
-  <script src="site-data.js?v=1"></script>
+  <script src="script.js?v=7"></script>
+  <script src="site-data.js?v=2"></script>
 </body>
 </html>

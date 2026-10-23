@@ -59,6 +59,16 @@ main{max-width:980px;margin:0 auto;padding:18px 20px 80px}
 #toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);max-width:90vw;padding:12px 20px;border-radius:14px;background:#166534;color:#fff;font-size:.92rem;opacity:0;pointer-events:none;transition:.25s;z-index:50}
 #toast.bad{background:#991b1b}
 #toast.show{opacity:1;transform:translate(-50%,0)}
+.badge{display:inline-block;min-width:20px;padding:0 6px;margin-left:4px;border-radius:999px;background:var(--red);color:#fff;font-size:.72rem;font-weight:700;line-height:20px;text-align:center}
+nav.tabs button.on .badge{background:#fff;color:var(--blue2)}
+.msg{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-bottom:14px}
+.msg.new{border-left:4px solid var(--blue)}
+.msg .when{color:var(--muted);font-size:.8rem;white-space:nowrap}
+.msg .meta{font-size:.88rem;color:var(--muted);margin-bottom:10px;word-break:break-word}
+.msg .meta a{color:#93c5fd;text-decoration:none}
+.msg .body{white-space:pre-wrap;word-break:break-word;margin-bottom:12px;font-size:.95rem}
+.msg .tag{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--blue2);font-size:.7rem;font-weight:600;vertical-align:middle}
+.btn.danger:hover{border-color:var(--red);color:var(--red)}
 @media(max-width:600px){main{padding:14px 14px 80px}.item,.card{padding:14px}}
 </style>
 </head>
@@ -87,7 +97,8 @@ main{max-width:980px;margin:0 auto;padding:18px 20px 80px}
     <div><small id="who"></small><a class="btn ghost" href="index.html" target="_blank">View site</a> <button class="btn ghost" id="logout" type="button">Logout</button></div>
   </header>
   <nav class="tabs" id="tabs">
-    <button data-t="text" class="on">Text</button>
+    <button data-t="messages" class="on">Messages <span class="badge hidden" id="m-badge"></span></button>
+    <button data-t="text">Text</button>
     <button data-t="contact">Contact</button>
     <button data-t="skills">Skills</button>
     <button data-t="qualifications">Qualifications</button>
@@ -95,7 +106,14 @@ main{max-width:980px;margin:0 auto;padding:18px 20px 80px}
     <button data-t="gallery">Gallery</button>
   </nav>
   <main>
-    <section class="panel on" id="p-text">
+    <section class="panel on" id="p-messages">
+      <h2>Messages</h2>
+      <p class="hint">Messages sent from the “Contact Me” form on your website. Newest first.</p>
+      <div class="bar" style="margin:0 0 14px"><button class="btn ghost" id="m-refresh" type="button"><i class="fas fa-rotate"></i> Refresh</button><button class="btn ghost" id="m-delread" type="button"><i class="fas fa-trash"></i> Delete all read</button></div>
+      <div id="m-list"></div>
+    </section>
+
+    <section class="panel" id="p-text">
       <h2>Hero &amp; About text</h2>
       <p class="hint">Tip: wrap words in **double stars** to make them bold in the About paragraph.</p>
       <div class="card">
